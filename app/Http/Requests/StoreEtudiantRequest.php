@@ -32,7 +32,6 @@ class StoreEtudiantRequest extends FormRequest
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'telephone' => ['required', 'numeric', 'digits_between:1,15'] ,
             'matricule' => ['required', 'string', 'unique:etudiants,matricule'],
-            // 'matieres' => ['required', 'array'],
         ];
     }
     public function failedValidation(Validator $validator) {
