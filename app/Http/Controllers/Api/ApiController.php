@@ -50,16 +50,16 @@ class ApiController extends Controller
 
             return response()->json([
                 "status" => false,
-                "message" => "Invalid login details"
+                "message" => "Vos données sont invalides"
             ]);
         }
 
         return response()->json([
             "status" => true,
-            "message" => "User logged in succcessfully",
+            "message" => "Utilisateur connecté avec succès",
             "token" => $token,
-            //"expires_in" => auth()->factory()->getTTL() * 60
-        ]);
+            'user'=> auth()->user(),
+            'expires_in' => env("JWT_TTL") * 60 . "seconds"        ]);
 
     }
 
@@ -78,18 +78,18 @@ class ApiController extends Controller
     //     ]);
     // }
 
-    // // Refresh Token API - GET (JWT Auth Token)
-    // public function refreshToken(){
+    // Refresh Token API - GET (JWT Auth Token)
+    public function refreshToken(){
 
-    //     $token = auth()->refresh();
+        $token = auth()->refresh();
 
-    //     return response()->json([
-    //         "status" => true,
-    //         "message" => "New access token",
-    //         "token" => $token,
-    //         //"expires_in" => auth()->factory()->getTTL() * 60
-    //     ]);
-    // }
+        return response()->json([
+            "status" => true,
+            "message" => "New access token",
+            "token" => $token,
+            'user'=> auth()->user(),
+            'expires_in' => env("JWT_TTL") * 60 . "seconds"]);
+    }
 
     // Logout API - GET (JWT Auth Token)
     public function logout(){
@@ -98,7 +98,7 @@ class ApiController extends Controller
 
         return response()->json([
             "status" => true,
-            "message" => "User logged out successfully"
+            "message" => "Utilisateur deconnecté avec succès"
         ]);
     }
 }

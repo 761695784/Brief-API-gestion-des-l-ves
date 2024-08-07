@@ -13,7 +13,8 @@ class MatiereController extends Controller
      */
     public function index()
     {
-        //
+     $matiere = Matiere::all();
+     return $this->customJsonResponse("Voici la liste des matiere", $matiere);
     }
 
     /**
@@ -37,7 +38,7 @@ class MatiereController extends Controller
      */
     public function show(Matiere $matiere)
     {
-        //
+        return $this->customJsonResponse("Voici la matiere", $matiere);
     }
 
     /**

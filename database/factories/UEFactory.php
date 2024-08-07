@@ -16,13 +16,19 @@ class UEFactory extends Factory
      */
     public function definition(): array
     {
+        $UE = [
+            ['date_debut' => '2024/09/01', 'date_fin' => '2024/09/30', 'coef' => 2, 'libelle' => 'Sciences'],
+            ['date_debut' => '2024/09/01', 'date_fin' => '2024/09/30', 'coef' => 4, 'libelle' => 'Langues'],
+        ];
+
+        $UE = $this->faker->unique()->randomElement($UE);
         return [
-            'date_debut' => $this->faker->date(),
-            'date_fin' => $this->faker->date(),
-            'coef' => $this->faker->numberBetween(1, 5),
-            'libelle' => $this->faker->word(),
-            'created_at' => now(),
-            'updated_at' => now(),
+            "libelle" => $UE["libelle"],
+            "date_debut" => $UE["date_debut"],
+            "date_fin" => $UE["date_fin"],
+            "coef" => $UE["coef"],
+            "created_at" => now(),
+            "updated_at" => now(),
         ];
     }
 }

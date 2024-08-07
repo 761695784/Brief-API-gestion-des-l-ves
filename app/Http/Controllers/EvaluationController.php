@@ -8,59 +8,32 @@ use App\Models\Evaluation;
 
 class EvaluationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $evaluations = Evaluation::all();
+        return response()->json($evaluations);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreEvaluationRequest $request)
     {
-        //
+        $evaluation = Evaluation::create($request->validated());
+        return response()->json(['message' => 'Evaluation créée avec succès', 'evaluation' => $evaluation], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Evaluation $evaluation)
     {
-        //
+        return response()->json($evaluation);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Evaluation $evaluation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateEvaluationRequest $request, Evaluation $evaluation)
     {
-        //
+        $evaluation->update($request->validated());
+        return response()->json(['message' => 'Evaluation mise à jour avec succès', 'evaluation' => $evaluation], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Evaluation $evaluation)
     {
-        //
+        $evaluation->delete();
+        return response()->json(['message' => 'Evaluation supprimée avec succès'], 200);
     }
 }

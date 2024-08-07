@@ -13,7 +13,8 @@ class EtudiantController extends Controller
      */
     public function index()
     {
-        //
+        $etudiant = Etudiant::all();
+        return $this->customJsonResponse("Liste des etudiants",$etudiant);
     }
 
     /**
@@ -29,7 +30,10 @@ class EtudiantController extends Controller
      */
     public function store(StoreEtudiantRequest $request)
     {
-        //
+        $etudiant = new Etudiant();
+        $etudiant->fill($request->validated());
+        $etudiant->save();
+        return $this->customJsonResponse("etudiant créé avec succès", $etudiant, 201);
     }
 
     /**
@@ -37,7 +41,7 @@ class EtudiantController extends Controller
      */
     public function show(Etudiant $etudiant)
     {
-        //
+        return $this->customJsonResponse("Voici l'étudiant", $etudiant);
     }
 
     /**
@@ -51,9 +55,12 @@ class EtudiantController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(UpdateEtudiantRequest $request, Etudiant $etudiant)
     {
-        //
+        $etudiant->fill($request->validated());
+        $etudiant->update();
+        return response()->json(['message' => 'Etudiant modifié avec succès', 'etudiant' => $etudiant], 200);
     }
 
     /**
@@ -61,6 +68,7 @@ class EtudiantController extends Controller
      */
     public function destroy(Etudiant $etudiant)
     {
-        //
+        $etudiant->delete();
+        return response()->json(['message' => 'Etudiant supprimé avec succès'], 200);
     }
 }

@@ -13,7 +13,8 @@ class UEController extends Controller
      */
     public function index()
     {
-        //
+        $ue = UE::all();
+        return $this->customJsonResponse("Voici la liste des UE", $ue);
     }
 
     /**
@@ -37,7 +38,7 @@ class UEController extends Controller
      */
     public function show(UE $uE)
     {
-        //
+        return $this->customJsonResponse("Voici l'UE", $uE);
     }
 
     /**
